@@ -1,5 +1,8 @@
 youtube-dl-playlist
 
+Author: Jordon Mears <jordoncm@gmail.com>
+License: LGPL version 2 or greater <http://www.gnu.org/licenses/lgpl.html>
+
 Usage: youtube-dl-playlist PLAYLIST_ID [DESTINATION_PATH]
 
 This utility allows you to download all the videos from a playlist on Youtube. 
