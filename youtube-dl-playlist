@@ -3,7 +3,7 @@
 # 
 # Utility to download Youtube playlist videos.
 # 
-# @author Jordon Mears <jordoncm@gmail.com>
+# @author Jordon Mears <jordoncm at gmail dot com>
 # @license LGPL version 2 or greater <http://www.gnu.org/licenses/lgpl.html>
 
 import sys

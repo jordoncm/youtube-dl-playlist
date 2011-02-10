@@ -1,6 +1,6 @@
 youtube-dl-playlist
 
-Author: Jordon Mears <jordoncm@gmail.com>
+Author: Jordon Mears <jordoncm at gmail dot com>
 License: LGPL version 2 or greater <http://www.gnu.org/licenses/lgpl.html>
 
 Usage: youtube-dl-playlist PLAYLIST_ID [DESTINATION_PATH]
