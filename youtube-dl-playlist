@@ -1,4 +1,10 @@
 #!/usr/bin/env python
+# youtube-dl-playlist
+# 
+# Utility to download Youtube playlist videos.
+# 
+# @author Jordon Mears <jordoncm@gmail.com>
+# @license LGPL version 2 or greater <http://www.gnu.org/licenses/lgpl.html>
 
 import sys
 import urllib
