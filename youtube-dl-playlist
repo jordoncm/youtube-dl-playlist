@@ -34,6 +34,7 @@ def getResponse(start, limit):
     return response
 
 def createPath(path, title):
+    title = title.replace('/', '')
     number = ''
     
     if os.path.exists(path + title) == True and os.path.isdir(path + title) == False:
