@@ -54,7 +54,10 @@ if len(sys.argv) < 2:
     usage()
     sys.exit(1)
 else:
-    PLAYLIST_ID = sys.argv[1]
+    if sys.argv[1][0] == 'P' and sys.argv[1][1] == 'L':
+        PLAYLIST_ID = sys.argv[1][2:]
+    else:
+        PLAYLIST_ID = sys.argv[1]
 
 if len(sys.argv) == 3:
     DESTINATION_PATH = sys.argv[2] + '/'
