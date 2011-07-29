@@ -109,18 +109,21 @@ while(i <= TOTAL_VIDEOS):
         if exists == True:
             print 'already exists'
         else:
-            os.chdir('/tmp/youtube-dl-playlist')
-            os.system('youtube-dl -q http://www.youtube.com/watch?v=' + entry['media$group']['yt$videoid']['$t'])
-            files = os.listdir('/tmp/youtube-dl-playlist')
-            for filename in files:
-                if filename.startswith(entry['media$group']['yt$videoid']['$t']) == True:
-                    break
-            os.chdir(CURRENT_PATH)
-            os.rename(
-                '/tmp/youtube-dl-playlist/' + filename,
-                ACTUAL_PATH + '/' + newFilename + filename[-4:]
-            )
-            print 'done'
+            try:
+                os.chdir('/tmp/youtube-dl-playlist')
+                os.system('youtube-dl -q http://www.youtube.com/watch?v=' + entry['media$group']['yt$videoid']['$t'])
+                files = os.listdir('/tmp/youtube-dl-playlist')
+                for filename in files:
+                    if filename.startswith(entry['media$group']['yt$videoid']['$t']) == True:
+                        break
+                os.chdir(CURRENT_PATH)
+                os.rename(
+                    '/tmp/youtube-dl-playlist/' + filename,
+                    ACTUAL_PATH + '/' + newFilename + filename[-4:]
+                )
+                print 'done'
+            except Exception:
+                print 'failed'
         
         i = i + 1
 
