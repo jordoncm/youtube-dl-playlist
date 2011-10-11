@@ -82,9 +82,10 @@ print 'Total videos to download: ' + str(TOTAL_VIDEOS)
 ACTUAL_PATH = createPath(DESTINATION_PATH, data['feed']['title']['$t'])
 CURRENT_PATH = os.getcwd()
 
-if os.path.exists('/tmp/youtube-dl-playlist'):
-    shutil.rmtree('/tmp/youtube-dl-playlist', True)
-os.mkdir('/tmp/youtube-dl-playlist')
+workdir = '/tmp/youtube-dl-playlist'
+if os.path.exists(workdir):
+    shutil.rmtree(workdir, True)
+os.mkdir(workdir)
 
 existingFiles = os.listdir(ACTUAL_PATH)
 
@@ -110,15 +111,15 @@ while(i <= TOTAL_VIDEOS):
             print 'already exists'
         else:
             try:
-                os.chdir('/tmp/youtube-dl-playlist')
+                os.chdir(workdir)
                 os.system('youtube-dl -q http://www.youtube.com/watch?v=' + entry['media$group']['yt$videoid']['$t'])
-                files = os.listdir('/tmp/youtube-dl-playlist')
+                files = os.listdir(workdir)
                 for filename in files:
                     if filename.startswith(entry['media$group']['yt$videoid']['$t']) == True:
                         break
                 os.chdir(CURRENT_PATH)
                 os.rename(
-                    '/tmp/youtube-dl-playlist/' + filename,
+                    workdir+'/' + filename,
                     ACTUAL_PATH + '/' + newFilename + filename[-4:]
                 )
                 print 'done'
@@ -127,4 +128,4 @@ while(i <= TOTAL_VIDEOS):
         
         i = i + 1
 
-shutil.rmtree('/tmp/youtube-dl-playlist', True)
+shutil.rmtree(workdir, True)
