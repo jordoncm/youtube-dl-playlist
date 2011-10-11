@@ -12,6 +12,7 @@ import httplib
 import json
 import os
 import shutil
+import tempfile
 
 def usage():
     print 'Usage: youtube-dl-playlist PLAYLIST_ID [DESTINATION_PATH]'
@@ -82,10 +83,7 @@ print 'Total videos to download: ' + str(TOTAL_VIDEOS)
 ACTUAL_PATH = createPath(DESTINATION_PATH, data['feed']['title']['$t'])
 CURRENT_PATH = os.getcwd()
 
-workdir = '/tmp/youtube-dl-playlist'
-if os.path.exists(workdir):
-    shutil.rmtree(workdir, True)
-os.mkdir(workdir)
+workdir = tempfile.mkdtemp(prefix="youtube-dl-playlist.")
 
 existingFiles = os.listdir(ACTUAL_PATH)
 
