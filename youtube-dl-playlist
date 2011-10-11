@@ -118,7 +118,7 @@ while(i <= TOTAL_VIDEOS):
                 os.chdir(CURRENT_PATH)
                 os.rename(
                     workdir+'/' + filename,
-                    ACTUAL_PATH + '/' + newFilename + filename[-4:]
+                    ACTUAL_PATH + '/' + newFilename + '.' + filename[-4:]
                 )
                 print 'done'
             except Exception:
