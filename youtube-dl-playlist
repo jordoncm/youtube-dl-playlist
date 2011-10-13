@@ -83,7 +83,7 @@ print 'Total videos to download: ' + str(TOTAL_VIDEOS)
 ACTUAL_PATH = createPath(DESTINATION_PATH, data['feed']['title']['$t'])
 CURRENT_PATH = os.getcwd()
 
-workdir = tempfile.mkdtemp(prefix = 'youtube-dl-playlist')
+workdir = tempfile.mkdtemp(prefix = 'youtube-dl-playlist.')
 
 existingFiles = os.listdir(ACTUAL_PATH)
 
@@ -98,7 +98,7 @@ while(i <= TOTAL_VIDEOS):
         
         exists = False
         for existingFilename in existingFiles:
-            if existingFilename.startswith(newFilename) == True and existingFilename[-4] == '.':
+            if os.path.isfile(os.path.join(ACTUAL_PATH, existingFilename)) == True and existingFilename.startswith(newFilename) == True:
                 exists = True
                 break
         
@@ -115,10 +115,11 @@ while(i <= TOTAL_VIDEOS):
                 for filename in files:
                     if filename.startswith(entry['media$group']['yt$videoid']['$t']) == True:
                         break
+                extension = filename[filename.rfind('.'):]
                 os.chdir(CURRENT_PATH)
                 os.rename(
                     os.path.join(workdir, filename),
-                    os.path.join(ACTUAL_PATH, newFilename + filename[-4:])
+                    os.path.join(ACTUAL_PATH, newFilename + extension)
                 )
                 print 'done'
             except Exception:
