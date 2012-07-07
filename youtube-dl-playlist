@@ -80,12 +80,7 @@ data = json.loads(data)
 TOTAL_VIDEOS = int(data['feed']['openSearch$totalResults']['$t'])
 print 'Total videos to download: ' + str(TOTAL_VIDEOS)
 
-ACTUAL_PATH = createPath(DESTINATION_PATH, data['feed']['title']['$t'])
-CURRENT_PATH = os.getcwd()
-
-workdir = tempfile.mkdtemp(prefix = 'youtube-dl-playlist.')
-
-existingFiles = os.listdir(ACTUAL_PATH)
+os.chdir(createPath(DESTINATION_PATH, data['feed']['title']['$t']))
 
 i = 1
 while(i <= TOTAL_VIDEOS):
@@ -94,37 +89,14 @@ while(i <= TOTAL_VIDEOS):
     data = json.loads(data)
     
     for entry in data['feed']['entry']:
-        newFilename = str(i).zfill(3) + ' - ' + entry['title']['$t'].replace('/', '')
+        print str(i).zfill(3)+ ':', entry['media$group']['yt$videoid']['$t'], '... '
         
-        exists = False
-        for existingFilename in existingFiles:
-            if os.path.isfile(os.path.join(ACTUAL_PATH, existingFilename)) == True and existingFilename.startswith(newFilename) == True:
-                exists = True
-                break
+        try:
+            os.system('youtube-dl -t --audio-format=best http://www.youtube.com/watch?v=' + entry['media$group']['yt$videoid']['$t'])
+            print 'ok'
         
-        sys.stdout.write(str(i).zfill(3) + ': ' + entry['media$group']['yt$videoid']['$t'] + ' ... ')
-        sys.stdout.flush()
-        
-        if exists == True:
-            print 'already exists'
-        else:
-            try:
-                os.chdir(workdir)
-                os.system('youtube-dl -q http://www.youtube.com/watch?v=' + entry['media$group']['yt$videoid']['$t'])
-                files = os.listdir(workdir)
-                for filename in files:
-                    if filename.startswith(entry['media$group']['yt$videoid']['$t']) == True:
-                        break
-                extension = filename[filename.rfind('.'):]
-                os.chdir(CURRENT_PATH)
-                os.rename(
-                    os.path.join(workdir, filename),
-                    os.path.join(ACTUAL_PATH, newFilename + extension)
-                )
-                print 'done'
-            except Exception:
-                print 'failed'
+        except Exception as e:
+            print 'failed: ', e.strerror
+            break 2
         
         i = i + 1
-
-shutil.rmtree(workdir, True)
