@@ -50,7 +50,8 @@ class PlaylistDownloader:
         print ytId + '(' + str(self.downloaded).zfill(3) + '):', ytTitle, '...'
 
         existing = glob.glob('*' + ytId + '.*');
-        if existing.__len__() > 0:
+        filtered = [x for x in existing if not x.endswith('part')]
+        if filtered.__len__() > 0:
             print 'alreary exists, skipping...'
             return True
 
